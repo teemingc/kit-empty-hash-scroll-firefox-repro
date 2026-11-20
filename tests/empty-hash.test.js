@@ -13,6 +13,8 @@ test('going back from a # link restores the scroll position', async ({ page }) =
 	await link.click();
 	await page.waitForURL('/#');
 	await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+	// give the browser time to fire hashchange
+	await page.waitForTimeout(500);
 
 	await page.goBack();
 	await page.waitForURL('/');
